@@ -47,6 +47,15 @@
 <script>
 import { latLng } from 'leaflet'
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from 'vue2-leaflet'
+import { Icon } from 'leaflet'
+
+// Webpack issue demands re-requiring of marker icons, see leaflet documentation: https://vue2-leaflet.netlify.app/quickstart/#marker-icons-are-missing
+delete Icon.Default.prototype._getIconUrl
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+})
 
 export default {
   name: 'Map',
