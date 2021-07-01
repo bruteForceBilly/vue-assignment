@@ -1,11 +1,12 @@
 <template>
   <div id="app">
+    latLng: {{ latLng }}
     <ul>
       <li v-for="(value, key, index) of vehicle" :key="index + key">
         {{ key }} : {{ value }}
       </li>
     </ul>
-    <Map />
+    <Map :gps="latLng" />
   </div>
 </template>
 
@@ -23,6 +24,12 @@ export default {
   data() {
     return {
       vehicle: ''
+    }
+  },
+  computed: {
+    latLng() {
+      if (!this.vehicle['gps']) return [52.3676, 4.9041] // Amsterdam Coord as init value
+      return this.vehicle['gps'].split('|').map((coord) => parseFloat(coord))
     }
   },
   mounted() {
