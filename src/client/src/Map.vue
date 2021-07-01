@@ -1,11 +1,5 @@
 <template>
   <div style="height: 500px; width: 100%">
-    <!-- <div style="height: 200px; overflow: auto">
-      <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>
-      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
-      <button @click="showLongText">Toggle long popup</button>
-      <button @click="showMap = !showMap">Toggle map</button>
-    </div> -->
     <l-map
       v-if="showMap"
       :zoom="zoom"
@@ -16,17 +10,26 @@
       @update:zoom="zoomUpdate"
     >
       <l-tile-layer :url="url" :attribution="attribution" />
-      <l-marker :lat-lng="withPopup">
-        <l-popup>
-          <div>
-            I am a popup
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
-        </l-popup>
+      <l-marker :lat-lng="vehicleMarkerPostion">
+        <l-icon>
+          <svg
+            class="text-yellow-300"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            stroke="black"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+        </l-icon>
       </l-marker>
     </l-map>
   </div>
@@ -34,10 +37,10 @@
 
 <script>
 import { latLng } from 'leaflet'
-import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
+import { LMap, LTileLayer, LMarker, LIcon } from 'vue2-leaflet'
 import { Icon } from 'leaflet'
 
-// Webpack issue demands re-requiring of marker icons, see leaflet documentation: https://vue2-leaflet.netlify.app/quickstart/#marker-icons-are-missing
+// Mitigate Leaflet library webpack issue, see docs: https://vue2-leaflet.netlify.app/quickstart/#marker-icons-are-missing
 delete Icon.Default.prototype._getIconUrl
 Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
@@ -51,25 +54,27 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LPopup
+    LIcon
   },
   props: {
     gps: {
       type: Array,
-      required: true
+      required: true,
+      default: function () {
+        return []
+      }
     }
   },
   data() {
     return {
       zoom: 13,
-      center: latLng(this.gps[0], this.gps[1]), //latLng(47.41322, -1.219482),
+      center: latLng(this.gps[0], this.gps[1]),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(this.gps[0], this.gps[1]),
+      vehicleMarkerPostion: latLng(this.gps[0], this.gps[1]),
       currentZoom: 11.5,
-      currentCenter: latLng(this.gps[0], this.gps[1]), //latLng(47.41322, -1.219482),
-      showParagraph: false,
+      currentCenter: latLng(this.gps[0], this.gps[1]),
       mapOptions: {
         zoomSnap: 0.5
       },
@@ -82,15 +87,12 @@ export default {
     },
     centerUpdate(center) {
       this.currentCenter = center
-    },
-    showLongText() {
-      this.showParagraph = !this.showParagraph
     }
   },
   watch: {
     gps: function (newVal) {
       this.currentCenter = latLng(newVal[0], newVal[1])
-      this.withPopup = latLng(newVal[0], newVal[1])
+      this.vehicleMarkerPostion = latLng(newVal[0], newVal[1])
     }
   }
 }

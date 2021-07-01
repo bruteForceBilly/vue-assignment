@@ -6,12 +6,13 @@
         {{ key }} : {{ value }}
       </li>
     </ul>
-    <Map :gps="latLng" />
+    <Map v-if="vehicle" :gps="latLng" />
   </div>
 </template>
 
 <script>
 import Map from './Map.vue'
+import throttle from 'lodash.throttle'
 
 const url = 'ws://localhost:3000'
 const connection = new WebSocket(url, 'echo-protocol')
@@ -23,22 +24,26 @@ export default {
   },
   data() {
     return {
-      vehicle: ''
+      vehicle: null
     }
   },
   computed: {
     latLng() {
-      if (!this.vehicle['gps']) return [52.3676, 4.9041] // Amsterdam Coord as init value
-      return this.vehicle['gps'].split('|').map((coord) => parseFloat(coord))
+      return this.vehicle
+        ? this.vehicle['gps'].split('|').map((coord) => parseFloat(coord))
+        : []
     }
   },
   mounted() {
     connection.onopen = () => {
       console.log('WS connection is open')
     }
-    connection.onmessage = (e) => {
+    // The gps coordinates does not fully correspond to
+    // the km/h, hece im throttling it to make the vehicle
+    // easier to follow on the map with your eyes.
+    connection.onmessage = throttle((e) => {
       this.vehicle = JSON.parse(e.data)
-    }
+    }, 500)
   }
 }
 </script>
