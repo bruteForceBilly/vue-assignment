@@ -5,15 +5,21 @@
         {{ key }} : {{ value }}
       </li>
     </ul>
+    <Map />
   </div>
 </template>
 
 <script>
+import Map from './Map.vue'
+
 const url = 'ws://localhost:3000'
 const connection = new WebSocket(url, 'echo-protocol')
 
 export default {
   name: 'App',
+  components: {
+    Map
+  },
   data() {
     return {
       vehicle: ''

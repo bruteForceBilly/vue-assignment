@@ -13,5 +13,8 @@
     "express": "^4.16.4",
     "pug": "^2.0.3",
     "ws": "^6.1.2"
+  },
+  "dependencies": {
+    "vue2-leaflet": "^2.7.1"
   }
 }
