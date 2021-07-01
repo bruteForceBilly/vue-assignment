@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <div>Hello World {{ test }}</div>
+    <ul>
+      <li v-for="(value, key, index) of vehicle" :key="index + key">
+        {{ key }} : {{ value }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -12,7 +16,7 @@ export default {
   name: 'App',
   data() {
     return {
-      test: 'init'
+      vehicle: ''
     }
   },
   mounted() {
@@ -20,7 +24,7 @@ export default {
       console.log('WS connection is open')
     }
     connection.onmessage = (e) => {
-      this.test = e.data
+      this.vehicle = JSON.parse(e.data)
     }
   }
 }
