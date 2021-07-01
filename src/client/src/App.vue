@@ -6,11 +6,13 @@
         {{ key }} : {{ value }}
       </li>
     </ul>
-    <Map v-if="vehicle" :gps="latLng" />
+    <Chart />
+    <Map v-if="false" :gps="latLng" />
   </div>
 </template>
 
 <script>
+import Chart from './Chart.js'
 import Map from './Map.vue'
 import throttle from 'lodash.throttle'
 
@@ -20,7 +22,8 @@ const connection = new WebSocket(url, 'echo-protocol')
 export default {
   name: 'App',
   components: {
-    Map
+    Map,
+    Chart
   },
   data() {
     return {
