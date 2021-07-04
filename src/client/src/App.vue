@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
-    latLng: {{ latLng }}
-    <ul>
+  <div id="app" class="px-10">
+    <Map v-if="vehicle" :gps="latLng" />
+
+    <ul class="inline-block">
       <li v-for="(value, key, index) of vehicle" :key="index + key">
         {{ key }} : {{ value }}
       </li>
     </ul>
-    <Chart />
-    <Map v-if="false" :gps="latLng" />
+    <Chart v-if="vehicle" :x-axis="vehicle.speed" class="" />
   </div>
 </template>
 
@@ -46,7 +46,7 @@ export default {
     // easier to follow on the map with your eyes.
     connection.onmessage = throttle((e) => {
       this.vehicle = JSON.parse(e.data)
-    }, 500)
+    }, 100)
   }
 }
 </script>
