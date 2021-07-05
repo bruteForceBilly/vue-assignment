@@ -1,22 +1,17 @@
 import { Line } from 'vue-chartjs'
 // Chart could inherit props
+
 export default {
   extends: Line,
-  props: {
-    yAxis: {
-      type: [Number, String],
-      required: true
-    }
-  },
   data() {
     return {
-      stack: [],
+      yStack: [],
       chartData: {
-        labels: ['Babol', 'Cabanatuan', 'Daegu', 'Jerusalem'],
+        labels: ['', '', '', ''],
         datasets: [
           {
-            label: 'Speed Profile',
-            data: [0, 31, 23, 16],
+            label: 'Profile',
+            data: [0, 0, 0, 0],
             fill: false,
             borderColor: 'rgba(53, 158, 255, 1)',
             backgroundColor: '#2554FF',
@@ -25,8 +20,8 @@ export default {
             lineTension: 0
           },
           {
-            label: 'Speed History',
-            data: [0, 31, 23, 16],
+            label: 'History',
+            data: [0, 0, 0, 0],
             fill: false,
             borderColor: 'rgba(225, 225, 225, 1)',
             backgroundColor: '#2554FF',
@@ -70,15 +65,15 @@ export default {
               },
               position: 'top',
               ticks: {
-                display: false,
-                beginAtZero: true
+                display: true,
+                beginAtZero: false
               },
               gridLines: {
                 display: true,
                 lineWidth: 0,
                 z: 1,
                 zeroLineColor: 'rgba(121, 121, 121, 1)',
-                zeroLineWidth: 6
+                zeroLineWidth: 3
               }
             }
           ]
@@ -88,33 +83,39 @@ export default {
       }
     }
   },
+  computed: {
+    yData() {
+      return this.$attrs['yData']
+    }
+  },
   methods: {
     render() {
       this.renderChart(this.chartData, this.options)
     },
     setChartData() {
-      // Speed Profile
-      this.chartData.datasets[0].data = this.stack.slice(0, 4).map((i) => i)
+      // Profile
+      this.chartData.datasets[0].data = this.yStack.slice(0, 4).map((i) => i)
 
-      // Speed History
-      this.chartData.datasets[1].data = this.stack.slice(5, 9).map((i) => i)
+      // History
+      this.chartData.datasets[1].data = this.yStack.slice(5, 9).map((i) => i)
     }
   },
   watch: {
-    yAxis: function (newVal) {
-      if (this.stack.length < 9) {
-        this.stack.push(newVal)
+    yData: function (newVal) {
+      if (this.yStack.length < 9) {
+        this.yStack.push(newVal)
       } else {
-        this.stack.shift()
-        this.stack.push(newVal)
+        this.yStack.shift()
+        this.yStack.push(newVal)
       }
     },
-    stack: function () {
+    yStack: function () {
       this.setChartData()
       this.render()
     }
   },
   mounted() {
+    //console.log('chart ', this.$attrs)
     this.render()
   }
 }

@@ -1,17 +1,18 @@
 <template>
-  <Figure class="relative">
-    <figcaption class="">{{ legend }}</figcaption>
-    <span class="absolute z-10 -left-20 inset-y-1/2 transform -rotate-90">
+  <Figure class="relative overflow-hidden">
+    <figcaption class="ml-5 -mb-3">{{ legend }}</figcaption>
+    <span class="absolute z-10 -left-14 inset-y-1/2 transform -rotate-90">
       {{ yLabel }}
     </span>
-    <Chart :y-axis="yData" :styles="chartStyle" class="my-3" />
-    <span> {{ xLabel }} </span>
+    <Chart v-bind="$props" :styles="chartStyle" class="mb-1 absolute left-5" />
+    <span class="ml-5"> {{ xLabel }} </span>
   </Figure>
 </template>
 
 <script>
-import Chart from './Chart.js'
+// rgba(121, 121, 121, 1)
 
+import Chart from './Chart.js'
 export default {
   name: 'LineChart',
   components: {
