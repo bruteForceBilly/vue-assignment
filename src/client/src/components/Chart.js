@@ -3,8 +3,15 @@ import { Line } from 'vue-chartjs'
 
 export default {
   extends: Line,
+  props: {
+    showText: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
+      xStack: [],
       yStack: [],
       chartData: {
         labels: ['', '', '', ''],
@@ -36,17 +43,17 @@ export default {
           duration: 0
         },
         legend: {
-          display: false
+          display: this.showText
         },
         scales: {
           yAxes: [
             {
               scaleLabel: {
-                display: false
+                display: this.showText
               },
               position: 'right',
               ticks: {
-                display: false,
+                display: this.showText,
                 beginAtZero: true
               },
               gridLines: {
@@ -61,19 +68,19 @@ export default {
           xAxes: [
             {
               scaleLabel: {
-                display: false
+                display: this.showText
               },
               position: 'top',
               ticks: {
-                display: true,
-                beginAtZero: false
+                display: this.showText,
+                beginAtZero: true
               },
               gridLines: {
                 display: true,
                 lineWidth: 0,
                 z: 1,
                 zeroLineColor: 'rgba(121, 121, 121, 1)',
-                zeroLineWidth: 3
+                zeroLineWidth: 6
               }
             }
           ]
@@ -84,6 +91,9 @@ export default {
     }
   },
   computed: {
+    xData() {
+      return this.$attrs['xData']
+    },
     yData() {
       return this.$attrs['yData']
     }
@@ -92,22 +102,34 @@ export default {
     render() {
       this.renderChart(this.chartData, this.options)
     },
+    setChartLabels() {
+      this.chartData.labels = this.xStack.map((i) => i)
+    },
     setChartData() {
       // Profile
       this.chartData.datasets[0].data = this.yStack.slice(0, 4).map((i) => i)
-
       // History
       this.chartData.datasets[1].data = this.yStack.slice(5, 9).map((i) => i)
+    },
+    setStack(stack, length, newVal) {
+      if (stack.length < length) {
+        stack.push(newVal)
+      } else {
+        stack.shift()
+        stack.push(newVal)
+      }
     }
   },
   watch: {
+    xData: function (newVal) {
+      this.setStack(this.xStack, 4, newVal)
+    },
+    xStack: function () {
+      this.setChartLabels()
+      this.render()
+    },
     yData: function (newVal) {
-      if (this.yStack.length < 9) {
-        this.yStack.push(newVal)
-      } else {
-        this.yStack.shift()
-        this.yStack.push(newVal)
-      }
+      this.setStack(this.yStack, 9, newVal)
     },
     yStack: function () {
       this.setChartData()
