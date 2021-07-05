@@ -1,6 +1,23 @@
 <template>
   <div id="app" class="px-10">
-    <Map v-if="vehicle" :gps="latLng" class="" />
+    <Map v-if="vehicle" :gps="latLng" />
+    <Meter
+      v-if="vehicle"
+      legend="Current Speed"
+      :value="vehicle.speed"
+      unit="km/h"
+      :min="0"
+      :max="50"
+    />
+    <Meter
+      v-if="vehicle"
+      legend="State of Charge"
+      :value="vehicle.soc"
+      unit="SoC(%)"
+      :min="0"
+      :max="100"
+      :ascendingColor="false"
+    />
     <ul v-if="vehicle" class="inline-block">
       <li v-for="(value, key, index) of vehicle" :key="index + key">
         {{ key }} : {{ value }}
@@ -30,6 +47,7 @@
 </template>
 
 <script>
+import Meter from './components/Meter.vue'
 import LineChart from './components/LineChart.vue'
 import Map from './Map.vue'
 import throttle from 'lodash.throttle'
@@ -41,6 +59,7 @@ export default {
   name: 'App',
   components: {
     Map,
+    Meter,
     LineChart
   },
   data() {
