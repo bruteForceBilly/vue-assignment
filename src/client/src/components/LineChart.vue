@@ -1,16 +1,27 @@
 <template>
-  <Figure class="relative overflow-hidden">
-    <figcaption class="ml-6">{{ legend }}</figcaption>
-    <span class="absolute z-10 -left-14 inset-y-1/2 transform -rotate-90">
+  <Figure class="relative overflow-hidden my-20">
+    <figcaption class="ml-10">{{ legend }}</figcaption>
+    <span
+      class="
+        absolute
+        z-10
+        left-4
+        bottom-11
+        whitespace-nowrap
+        transform
+        rotate-180
+      "
+      style="writing-mode: vertical-rl; text-orientation: mixed"
+    >
       {{ yLabel }}
     </span>
     <Chart
       v-bind="$props"
       :styles="chartStyle"
       :show-text="false"
-      class="my-1 absolute left-5"
+      class="absolute left-10"
     />
-    <span class="ml-6"> {{ xLabel }} </span>
+    <span class="ml-14"> {{ xLabel }} </span>
   </Figure>
 </template>
 
@@ -22,6 +33,14 @@ export default {
     Chart
   },
   props: {
+    sampleSize: {
+      type: Number,
+      default: 4
+    },
+    isContrasting: {
+      type: Boolean,
+      required: true
+    },
     legend: {
       type: String
     },

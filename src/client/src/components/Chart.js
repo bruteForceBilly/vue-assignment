@@ -1,5 +1,4 @@
 import { Line } from 'vue-chartjs'
-// Chart could inherit props
 
 export default {
   extends: Line,
@@ -14,11 +13,11 @@ export default {
       xStack: [],
       yStack: [],
       chartData: {
-        labels: ['', '', '', ''],
+        labels: [],
         datasets: [
           {
-            label: 'Profile',
-            data: [0, 0, 0, 0],
+            label: 'Average',
+            data: [],
             fill: false,
             borderColor: 'rgba(53, 158, 255, 1)',
             backgroundColor: '#2554FF',
@@ -27,8 +26,8 @@ export default {
             lineTension: 0
           },
           {
-            label: 'History',
-            data: [0, 0, 0, 0],
+            label: 'Normal',
+            data: [],
             fill: false,
             borderColor: 'rgba(225, 225, 225, 1)',
             backgroundColor: '#2554FF',
@@ -96,48 +95,72 @@ export default {
     },
     yData() {
       return this.$attrs['yData']
+    },
+    yAverage() {
+      let sum = this.yStack.reduce((pv, cv) => pv + cv, 0)
+      let average = sum / this.yStack.length
+      return average
     }
   },
   methods: {
     render() {
-      this.renderChart(this.chartData, this.options)
+      return this.renderChart(this.chartData, this.options)
     },
-    setChartLabels() {
-      this.chartData.labels = this.xStack.map((i) => i)
+    setLabels() {
+      return (this.chartData.labels = this.xStack.map((i) => i))
     },
-    setChartData() {
-      // Profile
-      this.chartData.datasets[0].data = this.yStack.slice(0, 4).map((i) => i)
-      // History
-      this.chartData.datasets[1].data = this.yStack.slice(5, 9).map((i) => i)
+    updateDataset(index, value) {
+      return this.chartData.datasets[index].data.push(value)
     },
-    setStack(stack, length, newVal) {
-      if (stack.length < length) {
-        stack.push(newVal)
-      } else {
-        stack.shift()
-        stack.push(newVal)
-      }
+    reset() {
+      this.xStack = []
+      this.yStack = []
+      this.chartData.datasets[0].data = []
+      this.chartData.datasets[1].data = []
     }
   },
   watch: {
     xData: function (newVal) {
-      this.setStack(this.xStack, 4, newVal)
+      if (typeof newVal !== 'number') {
+        this.xStack.push(0)
+        console.error('xData type error: newVal not a number')
+      } else if (!this.$attrs.isContrasting) {
+        this.xStack.push(newVal)
+        // if not contrasting we want to push every y value
+        this.yStack.push(this.yData)
+      } else {
+        this.xStack.push(newVal)
+      }
     },
     xStack: function () {
-      this.setChartLabels()
+      this.setLabels()
       this.render()
     },
     yData: function (newVal) {
-      this.setStack(this.yStack, 9, newVal)
+      if (
+        this.$attrs.isContrasting &&
+        typeof newVal === 'number' &&
+        this.yStack.length < this.xStack.length / this.$attrs.sampleSize
+      ) {
+        this.yStack.push(newVal)
+      } else if (this.$attrs.isContrasting && typeof newVal === 'number') {
+        this.yStack = []
+        this.yStack.push(newVal)
+      } else {
+        this.yStack.push(0)
+        // emit error - log issue
+        console.error('yData type error: newVal not a number')
+      }
     },
     yStack: function () {
-      this.setChartData()
+      // Set Average
+      this.updateDataset(0, this.yAverage)
+      // Set Normal
+      this.updateDataset(1, this.yData)
       this.render()
     }
   },
   mounted() {
-    //console.log('chart ', this.$attrs)
     this.render()
   }
 }
