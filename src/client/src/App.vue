@@ -1,18 +1,24 @@
 <template>
   <div id="app" class="px-10">
-    <Map v-if="vehicle" :gps="latLng" />
-
+    <Map v-if="vehicle" :gps="latLng" class="" />
     <ul class="inline-block">
       <li v-for="(value, key, index) of vehicle" :key="index + key">
         {{ key }} : {{ value }}
       </li>
     </ul>
-    <Chart v-if="vehicle" :x-axis="vehicle.speed" class="" />
+    <LineChart
+      v-if="vehicle"
+      legend="Speed Profile"
+      x-label="Time"
+      :x-data="vehicle.time"
+      y-label="Speed (km/h)"
+      :y-data="vehicle.speed"
+    />
   </div>
 </template>
 
 <script>
-import Chart from './Chart.js'
+import LineChart from './components/LineChart.vue'
 import Map from './Map.vue'
 import throttle from 'lodash.throttle'
 
@@ -23,7 +29,7 @@ export default {
   name: 'App',
   components: {
     Map,
-    Chart
+    LineChart
   },
   data() {
     return {

@@ -1,9 +1,9 @@
 import { Line } from 'vue-chartjs'
-
+// Chart could inherit props
 export default {
   extends: Line,
   props: {
-    xAxis: {
+    yAxis: {
       type: [Number, String],
       required: true
     }
@@ -49,7 +49,7 @@ export default {
               scaleLabel: {
                 display: false
               },
-              position: 'left',
+              position: 'right',
               ticks: {
                 display: false,
                 beginAtZero: true
@@ -57,8 +57,9 @@ export default {
               gridLines: {
                 display: true,
                 lineWidth: 0,
+                z: 1,
                 zeroLineColor: 'rgba(121, 121, 121, 1)',
-                zeroLineWidth: 3
+                zeroLineWidth: 6
               }
             }
           ],
@@ -67,7 +68,7 @@ export default {
               scaleLabel: {
                 display: false
               },
-              position: 'bottom',
+              position: 'top',
               ticks: {
                 display: false,
                 beginAtZero: true
@@ -75,8 +76,9 @@ export default {
               gridLines: {
                 display: true,
                 lineWidth: 0,
+                z: 1,
                 zeroLineColor: 'rgba(121, 121, 121, 1)',
-                zeroLineWidth: 3
+                zeroLineWidth: 6
               }
             }
           ]
@@ -99,7 +101,7 @@ export default {
     }
   },
   watch: {
-    xAxis: function (newVal) {
+    yAxis: function (newVal) {
       if (this.stack.length < 9) {
         this.stack.push(newVal)
       } else {
