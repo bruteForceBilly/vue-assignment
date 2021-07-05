@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="px-10">
-    <Map v-if="false" :gps="latLng" class="" />
-    <ul v-if="false" class="inline-block">
+    <Map v-if="vehicle" :gps="latLng" class="" />
+    <ul v-if="vehicle" class="inline-block">
       <li v-for="(value, key, index) of vehicle" :key="index + key">
         {{ key }} : {{ value }}
       </li>
