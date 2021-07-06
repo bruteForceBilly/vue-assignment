@@ -4,8 +4,6 @@ const state = () => ({
   hasError: false
 })
 
-const getters = {}
-
 const actions = {
   setMessageAction({ commit }, message) {
     let { time, energy, gps, odo, speed, soc } = message
