@@ -1,8 +1,9 @@
 <template>
   <div id="app" class="text-gray-600">
-    <div id="nav" class="border-b border-gray-100">
-      <router-link to="/">FleetManager</router-link> |
+    <div id="nav" class="p-6 border-b border-gray-100">
+      <router-link to="/">FleetManager</router-link>
       <router-link to="/vehicle">Vehicle</router-link>
+      <router-link to="/activity-log">Activity Log</router-link>
     </div>
     <router-view />
   </div>
@@ -15,12 +16,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nav {
-  padding: 30px;
+#nav a:first-child {
+  font-weight: 600;
+  margin: 0 2rem 0 0;
 }
 
 #nav a {
-  font-weight: bold;
+  font-weight: 500;
+  margin: 0 0.5rem;
 }
 
 #nav a.router-link-exact-active {
