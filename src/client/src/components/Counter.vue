@@ -6,7 +6,7 @@
         bg-white
         border border-gray-100
         p-4
-        w-1/2
+        w-36
         text-base
         font-medium
         whitespace-nowrap

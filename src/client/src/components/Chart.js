@@ -1,5 +1,7 @@
 import { Line } from 'vue-chartjs'
 
+// stacks should not be reactive?
+
 export default {
   extends: Line,
   props: {
@@ -121,10 +123,7 @@ export default {
   },
   watch: {
     xData: function (newVal) {
-      if (typeof newVal !== 'number') {
-        this.xStack.push(0)
-        console.error('xData type error: newVal not a number')
-      } else if (!this.$attrs.isContrasting) {
+      if (!this.$attrs.isContrasting) {
         this.xStack.push(newVal)
         // if not contrasting we want to push every y value
         this.yStack.push(this.yData)
@@ -137,19 +136,14 @@ export default {
       this.render()
     },
     yData: function (newVal) {
-      if (
-        this.$attrs.isContrasting &&
-        typeof newVal === 'number' &&
-        this.yStack.length < this.xStack.length / this.$attrs.sampleSize
-      ) {
-        this.yStack.push(newVal)
-      } else if (this.$attrs.isContrasting && typeof newVal === 'number') {
-        this.yStack = []
+      //console.log('yData newVal', newVal)
+
+      if (this.yStack.length < this.xStack.length / this.$attrs.sampleSize) {
+        // try freezing
         this.yStack.push(newVal)
       } else {
-        this.yStack.push(0)
-        // emit error - log issue
-        console.error('yData type error: newVal not a number')
+        this.yStack = []
+        this.yStack.push(newVal)
       }
     },
     yStack: function () {

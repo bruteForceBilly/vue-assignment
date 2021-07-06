@@ -5,7 +5,7 @@
       id="vehicle"
       class="p-10 mx-auto grid grid-cols-2 gap-10 w-3/4"
     >
-      <Map :gps="latLng" class="" />
+      <Map :gps="vehicle.gps" class="" />
 
       <div class="">
         <Meter
@@ -58,41 +58,20 @@ import LineChart from '@/components/LineChart.vue'
 import Map from '@/components/Map.vue'
 import Meter from '@/components/Meter.vue'
 
-import throttle from 'lodash.throttle'
-
-const url = 'ws://localhost:3000'
-const connection = new WebSocket(url, 'echo-protocol')
-
 export default {
-  name: 'App',
+  name: 'Vehicle',
   components: {
     Counter,
     LineChart,
     Map,
     Meter
   },
-  data() {
-    return {
-      vehicle: null
-    }
-  },
   computed: {
-    latLng() {
-      return this.vehicle
-        ? this.vehicle['gps'].split('|').map((coord) => parseFloat(coord))
-        : []
+    vehicle() {
+      return this.$store.state.routeConnection.message
+        ? this.$store.state.routeConnection.message
+        : null
     }
-  },
-  mounted() {
-    connection.onopen = () => {
-      console.log('WS connection is open')
-    }
-    // The gps coordinates does not fully correspond to
-    // the km/h, hece im throttling it to make the vehicle
-    // easier to follow on the map with your eyes.
-    connection.onmessage = throttle((e) => {
-      this.vehicle = JSON.parse(e.data)
-    }, 0)
   }
 }
 </script>
