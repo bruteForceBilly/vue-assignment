@@ -22,10 +22,10 @@
           unit="SoC(%)"
         />
 
-        <ul class="inline-block">
-          <li>Energy: {{ vehicle.energy }}</li>
-          <li>Odometer: {{ vehicle.odo }}</li>
-        </ul>
+        <div class="flex">
+          <Counter legend="Energy" unit="kW" :value="vehicle.energy" />
+          <Counter legend="Odometer" unit="km" :value="vehicle.odo" />
+        </div>
       </div>
 
       <LineChart
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import Counter from '@/components/Counter.vue'
 import LineChart from '@/components/LineChart.vue'
 import Map from '@/components/Map.vue'
 import Meter from '@/components/Meter.vue'
@@ -65,8 +66,9 @@ const connection = new WebSocket(url, 'echo-protocol')
 export default {
   name: 'App',
   components: {
-    Map,
+    Counter,
     LineChart,
+    Map,
     Meter
   },
   data() {
