@@ -1,16 +1,14 @@
 <template>
-  <div class="my-2">
-    <h3 class="text-lg leading-loose">{{ legend }}</h3>
-    <div class="border-2 p-0 border-black w-full overflow-hidden">
+  <div class="mb-6 text-left leading-relaxed">
+    <h3 class="text-lg mb-2">{{ legend }}</h3>
+    <div class="border-2 p-0 border-gray-600 w-full overflow-hidden bg-white">
       <div
         class="m-0 h-full transition-all"
         :style="`background-color: hsl(${this.hue}, 45%, 80%); width:${
           (meterValue / max) * 100
         }%`"
       >
-        <span
-          class="text-lg text-gray-600 font-medium py-4 pl-2 whitespace-nowrap"
-        >
+        <span class="text-base font-medium pl-2 whitespace-nowrap">
           {{ meterValue }} {{ unit }}
         </span>
       </div>
@@ -31,11 +29,11 @@ export default {
     },
     max: {
       type: Number,
-      required: true
+      default: 100
     },
     min: {
       type: Number,
-      required: true
+      default: 0
     },
     value: {
       type: [Number, String],

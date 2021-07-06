@@ -1,15 +1,15 @@
 <template>
-  <div style="height: 400px" class="w-1/3 inline-block">
+  <div style="height: 300px" class="inline-block border border-gray-100">
     <l-map
       v-if="showMap"
       :zoom="zoom"
       :center="center"
       :options="mapOptions"
-      style="height: 80%"
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
     >
       <l-tile-layer :url="url" :attribution="attribution" />
+
       <l-marker :lat-lng="vehicleMarkerPostion">
         <l-icon>
           <svg

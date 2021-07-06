@@ -1,11 +1,11 @@
 <template>
-  <Figure class="relative overflow-hidden my-20">
-    <figcaption class="ml-8">{{ legend }}</figcaption>
+  <Figure class="relative overflow-hidden">
+    <figcaption class="ml-5">{{ legend }}</figcaption>
     <span
       class="
         absolute
         z-10
-        left-2
+        -left-1
         bottom-11
         whitespace-nowrap
         transform
@@ -19,9 +19,10 @@
       v-bind="$props"
       :styles="chartStyle"
       :show-text="false"
-      class="absolute left-8"
+      class="absolute left-5 bg-white border-t border-r border-gray-100"
+      style="width: calc(100% - 1.75rem + 8px)"
     />
-    <span class="ml-12"> {{ xLabel }} </span>
+    <span class="ml-9"> {{ xLabel }} </span>
   </Figure>
 </template>
 
@@ -61,7 +62,7 @@ export default {
   },
   data() {
     return {
-      height: 200
+      height: 150
     }
   },
   computed: {
