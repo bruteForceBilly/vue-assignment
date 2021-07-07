@@ -54,9 +54,10 @@
 
 <script>
 import Counter from '@/components/Counter.vue'
-import LineChart from '@/components/LineChart.vue'
-import Map from '@/components/Map.vue'
 import Meter from '@/components/Meter.vue'
+
+const LineChart = () => import('@/components/LineChart.vue')
+const Map = () => import('@/components/Map.vue')
 
 export default {
   name: 'Vehicle',

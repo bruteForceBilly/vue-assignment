@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
-import '@/assets/css/tailwind.css'
 import 'leaflet/dist/leaflet.css'
 import store from './store'
 import router from './router'

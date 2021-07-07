@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import Chart from './Chart.js'
+const Chart = () => import('@/components/Chart.js')
+
 export default {
   name: 'LineChart',
   components: {
