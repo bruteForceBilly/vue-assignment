@@ -25,7 +25,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(entry, i) in entries()" :key="i + entry.date">
+            <tr
+              v-for="(entry, i) in getFilteredEntries()"
+              :key="i + entry.date"
+            >
               <td class="border px-2 py-4">{{ entry.type }}</td>
               <td class="border px-2 py-4">{{ entry.date }}</td>
               <td class="border px-2 py-4">{{ entry.message }}</td>
@@ -94,7 +97,7 @@ export default {
     }
   },
   methods: {
-    entries() {
+    getFilteredEntries() {
       return this.activeFilters.length ? this.activeFilters : this.logEntries
     },
     getLogEntries(val) {
