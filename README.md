@@ -23,6 +23,9 @@ Task I wished I could complete within the given timeframe
 - [ ] Write additional unit tests
 - [ ] Create a Layouts dir in client app with layout component for pages
 - [ ] Dockerize with docker-compose for easier demoing
+- [ ] Connection lost page
+- [ ] Reconnect handler in routeConnectionService
+- [ ] Notification bar component
 - [ ] Improve separation of concerns for Chart component: BaseChart.vue, ChartLayout.vue, ChartController.vue
 
 #### Project setup
