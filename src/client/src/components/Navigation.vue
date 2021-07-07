@@ -3,7 +3,7 @@
     <router-link to="/">FleetManager</router-link>
     <router-link to="/vehicle">Vehicle</router-link>
     <router-link to="/history-mode">History Mode </router-link>
-    <router-link to="/activity-log"
+    <router-link to="/activity-log" class="float-right"
       >Activity Log
       <span class="text-xs align-top font-thin">{{ activityLogCount }} </span>
     </router-link>
@@ -29,7 +29,7 @@ export default {
 
 #nav a {
   font-weight: 500;
-  margin: 0 0.5rem;
+  margin: 0 2rem 0 0;
 }
 
 #nav a.router-link-exact-active {
