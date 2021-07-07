@@ -2,7 +2,7 @@
 
 ### What is it?
 
-Welcome to FleetManager! A technical vue assignment for ViriCit. The requirements for the assignment can be found in the file requirements.md in project root.
+Welcome to FleetManager! A technical vue assignment for ViriCiti. The requirements for the assignment can be found in the file requirements.md in project root.
 
 ### Features
 
