@@ -1,79 +1,82 @@
+# ViriCiti Vue Assignment 🚌
 
-# ViriCiti Vue Assignment
----
-![](https://imgs.xkcd.com/comics/self_description.png)
+### What is it?
 
-This repository holds the ViriCiti Vue assignment. In this project you will find the description regarding the assignment for you to do. This assignment represent what we do on a day to day basis. We receive raw data from vehicles store it on database then send it to browser app via web socket.
+Welcome to FleetManager! A technical vue assignment for ViriCit. The requirements for the assignment can be found in the file requirements.md in project root.
 
----
+### Features
 
-## Getting Started
-First of all, fork the repository at:
+The app has three pages: Home, Vehicle and Activity Log. These pages can be navigated to to using the navigation bar in the top left corner of the app. The requirements for the assignments is mainly fulfilled by the Vehicle page. However, the assignment also suggested me to be creative, and so I have created an activity log page where incidents, errors and warning messages are displayed in a table that can be filtered.
 
-`https://github.com/viriciti/vue-assignment`
+I also really wanted to build a "history mode" page, where the user can chose to record the vehicle trajectory on the map by duplicating the map placeholder for every _n_ message received from the socket connection, leaving a trail of "crumbs" on the map that the user could interact with (i.e displaying a tooltip on mouse over), but sadly there was no time for me to implement this.
 
-Then open up your terminal and clone the forked repository
+### A note on testing
 
-<sup>Replace [YOUR_USERNAME] with your name</sup>
+While developing this application, I notice that the data broadcasted from the server sometimes would send an empty string for numerical values, due to empty cells in the provided csv file (For example see row 449 and 526). I therefore choose to overwrite empty strings meant for numerical values with the number zero in a vuex action. This way I did not have to rely on prop type checking throughout the client app. As many components in the app rely on this, I decided to write a unit test for this action. If I had more time I would also have had tested the filter functionality in the activity log page, the routeConnection service as well as the average profile line method in the Chart component.
 
-`git clone https://github.com/[YOUR_USERNAME]/vue-assignment.git`
+### Wish list
 
-Enter the directory
+Task I wished I could complete within the given timeframe
 
-`cd vue-assignment`
+- [ ] Extract atomic components with v- prefix. I.e v-button in activity log page
+- [ ] Finish History Mode Feature
+- [ ] Write additional unit tests
+- [ ] Create a Layouts dir in client app with layout component for pages
+- [ ] Dockerize with docker-compose for easier demoing
+- [ ] Improve separation of concerns for Chart component: BaseChart.vue, ChartLayout.vue, ChartController.vue
 
-Install all the dependencies
+#### Project setup
 
-`npm i`
+In root dir /
 
-Run the app
-
-`npm start`
-
----
-
-## The Assignment
-We have provided you with a starter kit that broadcast vehicle data via web socket. You can find the HTTP server on `src/server/app.js`, it's a bare minimum setup containing an express server to serve HTML page and ws server that broadcast raw data. What you need to build is a front end application that should look like below:
-
-![](https://github.com/viriciti/vue-assignment/raw/master/sketch.png)
-
-The whole front end application should be build with [Vue.js](https://vuejs.org/), but you're free to choose how it's build and composed. Data that are needed to render all those component is provided via the web socket connection.
-
-As you can see in this repository there are no webpack configuration  and frontend server. You're free to create your own configuration, maybe you want different config for production and development.
-
-### Get Creative!
-You can also extend the functionality for both front end and back end of the application. For example, making a more informative front end or incident for vehicle that went to fast on the road (this can be done both in the front end and back end, double points for back end implementation ;) )
-
-### The data
-On websocket stream the data should look like this:
-
-```JS
-{
-  time: 1511512585495,
-  energy: 85.14600000000002,
-  gps: ["52.08940124511719","5.105764865875244"],
-  odo: 5.381999999997788,
-  speed: 12,
-  soc: 88.00000000000007
-}
+```
+yarn
 ```
 
-* time - Unix timestamp of the moment the datapoint was recorder
-* energy - Energy used in kWh
-* gps - Latitude and longitude where the datapoint was recorded
-* odo - The distance driven in km
-* speed - The speed the vehicle was going in km/h
-* soc - The state of charge (battery) of the vehicle in %
+Change directory to client and run yarn
 
-## Read up material
-Looking to level up your knowledge and skills? These are some good articles/courses that you can check out.
-* [Vue JS](https://vuejs.org/)
-* [Chartjs](https://www.chartjs.org/)
-* [Node.js WebSocket](https://flaviocopes.com/node-websockets/)
-### General
-* Learn [Node.js and it's modules](http://nodeschool.io/#workshoppers)
+```
+cd src/client
+yarn
+```
 
-## Questions
-If you have any questions about the assignment or project setup feel free to contact us at <a href='mailto:e.tamames@viriciti.com'>e.tamames@viriciti.com</a> or <a href='mailto:s.surur@viriciti.com'>s.surur@viriciti.com</a>. You can also come by the office. We're always ready to help.
+#### Run server
 
-Good luck with the assignment!
+In root dir /
+
+```
+yarn start
+```
+
+#### Run client in local development mode
+
+In /src/client
+
+```
+yarn serve
+```
+
+#### Compile client for production
+
+In /src/client
+
+```
+yarn build
+```
+
+#### Serve client production build locally
+
+In /src/client
+
+```
+yarn global add serve
+serve -s dist
+```
+
+#### Run unit tests
+
+In /src/client
+
+```
+yarn test:unit
+```
