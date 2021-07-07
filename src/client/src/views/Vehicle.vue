@@ -68,9 +68,7 @@ export default {
   },
   computed: {
     vehicle() {
-      return this.$store.state.routeConnection.message
-        ? this.$store.state.routeConnection.message
-        : null
+      return this.$store.state.routeConnection.message || null
     }
   }
 }
