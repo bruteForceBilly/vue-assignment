@@ -40,6 +40,9 @@ export default {
         ]
       },
       options: {
+        tooltips: {
+          enabled: false
+        },
         animation: {
           duration: 0
         },
@@ -136,10 +139,10 @@ export default {
       this.render()
     },
     yData: function (newVal) {
-      //console.log('yData newVal', newVal)
-
-      if (this.yStack.length < this.xStack.length / this.$attrs.sampleSize) {
-        // try freezing
+      if (
+        this.yStack.length <
+        this.xStack.length / this.$attrs.profileMultiplier
+      ) {
         this.yStack.push(newVal)
       } else {
         this.yStack = []

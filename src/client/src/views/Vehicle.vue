@@ -31,7 +31,7 @@
       <LineChart
         class="col-span-2"
         :is-contrasting="true"
-        :sampleSize="4"
+        :profileMultiplier="4"
         legend="Speed Profile"
         x-label="Time"
         :x-data="vehicle.time"
@@ -41,7 +41,7 @@
       <LineChart
         class="col-span-2"
         :is-contrasting="false"
-        :sampleSize="2"
+        :profileMultiplier="2"
         legend="State of Charge Profile"
         x-label="Time"
         :x-data="vehicle.time"

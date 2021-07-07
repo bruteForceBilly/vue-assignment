@@ -34,7 +34,7 @@ export default {
     Chart
   },
   props: {
-    sampleSize: {
+    profileMultiplier: {
       type: Number,
       default: 4
     },
