@@ -9,7 +9,7 @@
             v-for="btn in filterButtons"
             :key="btn.id"
             @click="btn.isActive = !btn.isActive"
-            class="rounded-full px-3 py-1 mx-2"
+            class="rounded-full px-3 py-1 mx-2 outline-none"
             :class="btn.isActive ? 'bg-gray-200' : 'bg-gray-100'"
           >
             {{ btn.label }}

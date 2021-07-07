@@ -5,7 +5,7 @@
       id="vehicle"
       class="p-20 mx-auto grid grid-cols-2 gap-10 w-3/4"
     >
-      <Map :gps="vehicle.gps" class="" />
+      <Map :gps="vehicle.gps" style="height: 300px" />
 
       <div class="">
         <Meter

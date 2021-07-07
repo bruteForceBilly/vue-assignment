@@ -1,11 +1,12 @@
 <template>
-  <div id="nav" class="p-6 border-b border-gray-100">
+  <div id="nav" class="p-6 border-b border-gray-100 relative z-50">
     <router-link to="/">FleetManager</router-link>
     <router-link to="/vehicle">Vehicle</router-link>
     <router-link to="/activity-log"
       >Activity Log
       <span class="text-xs align-top font-thin">{{ activityLogCount }} </span>
     </router-link>
+    <router-link to="/history-mode">History Mode </router-link>
   </div>
 </template>
 

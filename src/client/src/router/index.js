@@ -16,6 +16,12 @@ const routes = [
       import(/* webpackChunkName: "activityLog" */ '../views/ActivityLog.vue')
   },
   {
+    path: '/history-mode',
+    name: 'HistoryMode',
+    component: () =>
+      import(/* webpackChunkName: "historyMode" */ '../views/HistoryMode.vue')
+  },
+  {
     path: '/vehicle',
     name: 'Vehicle',
     component: () =>
