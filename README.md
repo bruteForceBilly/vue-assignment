@@ -12,7 +12,7 @@ I also really wanted to build a "history mode" page, where the user can chose to
 
 ### Tests
 
-While developing this application, I notice that the data broadcasted from the server sometimes would send an empty string for numerical values, due to empty cells in the provided csv file (For example see row 449 and 526). I therefore choose to overwrite empty strings meant for numerical values with the number zero in a vuex action. This way I did not have to rely on prop type checking throughout the client app. As many components in the app rely on this, I decided to write a unit test for this action. If I had more time I would also have had tested the filter functionality in the activity log page, the routeConnection service as well as the average profile line method in the Chart component.
+While developing this application, I noticed that the data broadcasted from the server sometimes would send an empty string for numerical values, due to empty cells in the provided csv file (For example see row 449 and 526). I therefore choose to overwrite empty strings meant for numerical values with the number zero in a vuex action. This way I did not have to rely on prop type checking throughout the client app. As many components in the app rely on this, I decided to write a unit test for this action. If I had more time I would also have had tested the filter functionality in the activity log page, the routeConnection service as well as the average profile line method in the Chart component.
 
 ### Wish list
 
