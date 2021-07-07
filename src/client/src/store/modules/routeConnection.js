@@ -7,7 +7,6 @@ const state = () => ({
 const actions = {
   setMessageAction({ commit }, message) {
     let { time, energy, gps, odo, speed, soc } = message
-
     // Set default value if illegal type - Avoid loop for performance
     time = typeof time === 'number' ? time : 0
     energy = typeof energy === 'number' ? energy : 0

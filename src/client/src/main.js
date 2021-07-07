@@ -6,9 +6,9 @@ import 'leaflet/dist/leaflet.css'
 import store from './store'
 import router from './router'
 
-import routeConnection from '@/services/routeConnection.js'
+import routeConnectionService from '@/services/routeConnectionService.js'
 
-Vue.use(routeConnection)
+Vue.use(routeConnectionService)
 
 Vue.use(Vuex)
 
@@ -17,6 +17,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  routeConnection,
+  routeConnectionService,
   render: (h) => h(App)
 }).$mount('#app')
