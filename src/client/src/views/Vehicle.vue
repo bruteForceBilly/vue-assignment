@@ -3,7 +3,7 @@
     <div
       v-if="vehicle"
       id="vehicle"
-      class="p-10 mx-auto grid grid-cols-2 gap-10 w-3/4"
+      class="p-20 mx-auto grid grid-cols-2 gap-10 w-3/4"
     >
       <Map :gps="vehicle.gps" class="" />
 

@@ -54,6 +54,16 @@ export default {
     meterValue() {
       return typeof this.value === 'number' ? this.value : 0
     }
+  },
+  watch: {
+    value: function (newVal) {
+      if (newVal > this.max)
+        return this.$store.dispatch('activityLog/setLogEntryAction', {
+          type: 'Incident',
+          message: `Incident: ${this.legend} is ${this.value} ${this.unit}. 
+          Exceeding max value of ${this.max} ${this.unit}`
+        })
+    }
   }
 }
 </script>
